@@ -129,7 +129,7 @@
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        captchaCode = Math.random().toString(36).substring(2, 8);
+        captchaCode = `rian`
         context.font = '30px Arial';
         context.fillStyle = '#000';
         context.fillText(captchaCode, 50, 35);
