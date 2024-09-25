@@ -234,11 +234,12 @@
 
         axios.get(url)
         .then(response => {
+          let resulnya = response.data.result
           document.getElementById('loader').classList.add('hidden');
           const resultsDiv = document.getElementById('results');
           resultsDiv.innerHTML = '';
 
-          response.data.result.forEach(song => {
+          resulnya.forEach(song => {
             const resultItem = document.createElement('div');
             resultItem.classList.add('flex', 'items-center', 'bg-white', 'rounded-lg', 'shadow-md', 'p-4', 'mb-4', 'dark:bg-gray-800');
 
