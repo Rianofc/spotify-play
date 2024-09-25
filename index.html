@@ -228,7 +228,7 @@
 
       function search() {
         const query = document.getElementById('searchInput').value;
-        const url = 'https://spotifyapi.caliphdev.com/api/search/tracks?q=' + encodeURIComponent(query);
+        const url = 'https://apikita.exonity.xyz/api/yts?query=' + encodeURIComponent(query);
 
         document.getElementById('loader').classList.remove('hidden');
 
@@ -254,12 +254,12 @@
             songInfo.appendChild(title);
 
             const artist = document.createElement('p');
-            artist.textContent = `Artist: ${song.artist}`;
+            artist.textContent = `Artist: ${song.author.name}`;
             artist.classList.add('text-gray-700', 'mb-1', 'dark:text-gray-300');
             songInfo.appendChild(artist);
 
             const album = document.createElement('p');
-            album.textContent = `Album: ${song.album}`;
+            album.textContent = `Album: ${song.title}`;
             album.classList.add('text-gray-700', 'mb-1', 'dark:text-gray-300');
             songInfo.appendChild(album);
 
@@ -288,18 +288,20 @@
 
         document.getElementById('previewThumbnail').src = song.thumbnail;
         document.getElementById('previewTitle').textContent = song.title;
-        document.getElementById('previewArtist').textContent = `Artist: ${song.artist}`;
-        document.getElementById('previewAlbum').textContent = `Album: ${song.album}`;
+        document.getElementById('previewArtist').textContent = `Artist: ${song.author.name}`;
+        document.getElementById('previewAlbum').textContent = `Album: ${song.author.name}`;
 
         const audioContainer = document.getElementById('previewAudioContainer');
+        let cok = await axios.get(`https://apikita.exonity.xyz/api/ytdlp?url=${song.url}`) 
+        let play = cok.data.audio
         audioContainer.innerHTML = `
         <audio controls class="w-full mb-4">
-        <source src="https://spotifyapi.caliphdev.com/api/download/track?url=${song.url}" type="audio/mp3">
+        <source src="${play}" type="audio/mp3">
         Your browser does not support the audio element.
         </audio>
         `;
 
-        document.getElementById('previewDownload').href = `https://spotifyapi.caliphdev.com/api/download/track?url=${song.url}`;
+        document.getElementById('previewDownload').href = `${play}`;
       }
 
       function closePreview() {
